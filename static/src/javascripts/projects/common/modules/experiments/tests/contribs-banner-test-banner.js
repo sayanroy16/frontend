@@ -7,8 +7,10 @@ import {
 } from 'lib/geolocation';
 
 const geolocation = geolocationGetSync();
-const messageText =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
+const canRunBool = !['US', 'GB', 'AU'].includes(geolocation)
+const controlMessageText = 'You are reading the CONTROL message text';
+const variantMessageText = 'You are reading the VARIANT message text';
 const ctaText = `<span class="engagement-banner__highlight"> Support The Guardian from as little as ${getLocalCurrencySymbol(
     geolocation
 )}1</span>`;
@@ -25,7 +27,7 @@ export const testBanner: AcquisitionsABTest = {
     successMeasure: 'AV per impression',
     audienceCriteria: 'All',
     idealOutcome: 'variant design performs at least as well as control',
-    canRun: () => true,
+    canRun: () => canRunBool,
     showForSensitive: true,
     componentType: 'ACQUISITIONS_ENGAGEMENT_BANNER',
     geolocation,
@@ -34,10 +36,22 @@ export const testBanner: AcquisitionsABTest = {
             id: 'control',
             test: (): void => {},
             engagementBannerParams: {
-                leadSentence: `Thalia and Michael made this`,
-                messageText,
+                leadSentence: `Thalia and Michael made this :)`,
+                messageText: controlMessageText,
                 ctaText,
                 template: acquisitionsBannerControlTemplate,
+                userCohort: 'AllExistingSupporters',
+            },
+        },
+        {
+            id: 'variant',
+            test: (): void => {},
+            engagementBannerParams: {
+                leadSentence: `Thalia and Michael made this :)`,
+                messageText: variantMessageText,
+                ctaText,
+                template: acquisitionsBannerControlTemplate,
+                userCohort: 'AllExistingSupporters',
             },
         },
     ],
