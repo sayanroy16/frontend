@@ -16,6 +16,7 @@ import { contributionsEpicPrecontributionReminderRoundTwo } from 'common/modules
 import { contributionsEpicLiveblogDesignTestR2 } from 'common/modules/experiments/tests/contributions-epic-liveblog-design-test';
 import { commercialGptPath } from 'common/modules/experiments/tests/commercial-gpt-path';
 import { contributionsCovidBannerRoundTwo } from 'common/modules/experiments/tests/contribs-banner-covid-round-two';
+import {testBanner} from "common/modules/experiments/tests/contribs-banner-test-banner";
 
 export const concurrentTests: $ReadOnlyArray<ABTest> = [
     commercialPrebidSafeframe,
@@ -40,6 +41,7 @@ export const epicTests: $ReadOnlyArray<EpicABTest> = [
 ];
 
 export const engagementBannerTests: $ReadOnlyArray<AcquisitionsABTest> = [
+    testBanner,
     contributionsCovidBannerRoundTwo,
     articlesViewedBanner,
 ];

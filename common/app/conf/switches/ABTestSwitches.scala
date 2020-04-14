@@ -48,6 +48,16 @@ trait ABTestSwitches {
 
   Switch(
     ABTests,
+    "ab-contributions-banner-test-banner",
+    "test banner",
+    owners = Seq(Owner.withGithub("michaelbjacobson"), Owner.withGithub("tjsilver")),
+    safeState = Off,
+    sellByDate = new LocalDate(2020, 9, 30),
+    exposeClientSide = true
+  )
+
+  Switch(
+    ABTests,
     "ab-contributions-covid-banner-round-two",
     "Covid crisis",
     owners = Seq(Owner.withGithub("jlieb10")),
