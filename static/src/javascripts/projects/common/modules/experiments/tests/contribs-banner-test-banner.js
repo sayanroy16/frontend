@@ -2,11 +2,9 @@
 
 import { acquisitionsBannerControlTemplate } from 'common/modules/commercial/templates/acquisitions-banner-control';
 import {
-    getCountryName,
     getLocalCurrencySymbol,
     getSync as geolocationGetSync,
 } from 'lib/geolocation';
-import { getArticleViewCountForWeeks } from 'common/modules/onward/history';
 
 const geolocation = geolocationGetSync();
 const messageText =
