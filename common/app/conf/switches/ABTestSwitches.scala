@@ -145,4 +145,14 @@ trait ABTestSwitches {
     sellByDate = new LocalDate(2020, 5, 13),
     exposeClientSide = true
   )
+
+  Switch(
+    ABTests,
+    "ab-commercial-test",
+    "test test",
+    owners = Seq(Owner.withGithub("ripecosta")),
+    safeState = Off,
+    sellByDate = new LocalDate(2020, 5, 12),
+    exposeClientSide = true
+  )
 }

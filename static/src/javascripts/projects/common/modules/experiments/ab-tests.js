@@ -13,6 +13,7 @@ import { signInGate } from 'common/modules/experiments/tests/sign-in-gate';
 import { signInGateVariant } from 'common/modules/experiments/tests/sign-in-gate-variant';
 import { signInGateScale } from 'common/modules/experiments/tests/sign-in-gate-scale';
 import { contributionsCovidBannerRoundTwo } from 'common/modules/experiments/tests/contribs-banner-covid-round-two';
+import { testTest } from 'common/modules/experiments/tests/commercial-test';
 
 export const concurrentTests: $ReadOnlyArray<ABTest> = [
     commercialPrebidSafeframe,
@@ -24,6 +25,7 @@ export const concurrentTests: $ReadOnlyArray<ABTest> = [
     signInGate,
     signInGateVariant,
     signInGateScale,
+    testTest,
 ];
 
 export const priorityEpicTest: EpicABTest = frontendDotcomRenderingEpic;
