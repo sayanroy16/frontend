@@ -250,6 +250,19 @@ const emitBeginEvent = (trackingCampaignId: string) => {
     mediator.emit('register:begin', trackingCampaignId);
 };
 
+const emitInsertEvent2 = (
+    insertEvent: string,
+    componentType: OphanComponentType,
+    products: $ReadOnlyArray<OphanProduct>,
+    campaignCode: ?string
+) => {
+    mediator.emit(insertEvent, {
+        componentType,
+        products,
+        campaignCode: campaignCode || '',
+    });
+};
+
 const emitInsertEvent = (
     parentTest: EpicABTest,
     products: $ReadOnlyArray<OphanProduct>,
@@ -259,6 +272,44 @@ const emitInsertEvent = (
         componentType: parentTest.componentType,
         products,
         campaignCode: campaignCode || '',
+    });
+};
+
+const setupOnView2 = (
+    element: HTMLElement,
+    viewEvent: string,
+    testId:  string,
+    componentType: string,
+    campaignCode: ?string,
+    trackingCampaignId: string,
+    products: $ReadOnlyArray<OphanProduct>,
+    showTicker: boolean = false,
+) => {
+    const inView = elementInView(element, window, {
+        top: 18,
+    });
+
+    inView.on('firstview', () => {
+        logView(testId);
+
+        mediator.emit(viewEvent, {
+            componentType,
+            products,
+            campaignCode,
+        });
+
+        mediator.emit('register:end', trackingCampaignId);
+
+        if (showTicker) {
+            initTicker('.js-epic-ticker');
+        }
+
+        if(config.get('switches.showContributionReminder')) {
+            const htmlElements = getFields();
+            if (htmlElements) {
+                epicReminderEmailSignup(htmlElements);
+            }
+        }
     });
 };
 
@@ -296,6 +347,29 @@ const setupOnView = (
             }
         }
     });
+};
+
+const setupClickHandling2 = (
+    testId: string,
+    variantId: string,
+    componentType: OphanComponentType,
+    campaignCode: ?string,
+    products: $ReadOnlyArray<OphanProduct>,
+) => {
+    awaitEpicButtonClicked().then(() =>
+        submitClickEvent({
+            component: {
+                componentType,
+                products,
+                campaignCode: campaignCode || '',
+                id: campaignCode || '',
+            },
+            abTest: {
+                name: testId,
+                variant: variantId,
+            },
+        })
+    );
 };
 
 const setupClickHandling = (
@@ -943,6 +1017,9 @@ export {
     buildBannerCopy,
     setupOnView,
     emitBeginEvent,
+    emitInsertEvent2,
+    setupClickHandling2,
+    setupOnView2,
     setupClickHandling,
     emitInsertEvent,
     isCompatibleWithLiveBlogEpic,

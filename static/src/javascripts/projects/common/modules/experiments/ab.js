@@ -30,6 +30,7 @@ import {
     getEngagementBannerTestsFromGoogleDoc,
     getConfiguredEpicTests,
 } from 'common/modules/commercial/contributions-utilities';
+import { setEpic } from 'common/modules/commercial/contributions-service';
 import { getMvtValue } from 'common/modules/analytics/mvt-cookie';
 import { getSync as geolocationGetSync } from 'lib/geolocation';
 import {
@@ -66,6 +67,16 @@ export const getEpicTestToRun = memoize(
         const lowPriorityHardCodedTests = hardCodedEpicTests.filter(
             test => !test.highPriority
         );
+
+        // Do look a 5% test, and segment local/remote within
+
+        // Do a 100% first priority test
+        // and sample in the canRun?
+        if (config.get("switches.abRemoteEpicVariants")) {
+            if (Math.random() < 0.1) {
+                return setEpic();
+            }
+        }
 
         if (config.get('switches.useConfiguredEpicTests')) {
             return getConfiguredEpicTests().then(configuredEpicTests => {

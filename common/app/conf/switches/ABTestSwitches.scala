@@ -145,4 +145,14 @@ trait ABTestSwitches {
     sellByDate = new LocalDate(2020, 5, 13),
     exposeClientSide = true
   )
+
+  Switch(
+    ABTests,
+    "ab-remote-epic-variants",
+    "Serve epics from remote service for subset of audience",
+    owners = Seq(Owner.withGithub("nicl")),
+    safeState = Off,
+    sellByDate = new LocalDate(2020, 6, 1),
+    exposeClientSide = true,
+  )
 }
